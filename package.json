@@ -1,0 +1,23 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "YelpCamp",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akhilpen/YelpCamp.git"
+  },
+  "author": "Sai Akhil Pendyala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akhilpen/YelpCamp/issues"
+  },
+  "homepage": "https://github.com/akhilpen/YelpCamp#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.4"
+  }
+}
