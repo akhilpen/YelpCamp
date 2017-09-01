@@ -1,14 +1,11 @@
 var express = require("express");
 var app = express();
+var bodyparser = require("body-parser");
+app.use(bodyparser.urlencoded({extended:true}));
 
 app.set("view engine","ejs");
 
-app.get("/",function(req,res){
-    res.render("landing");
-});
-
-app.get("/campgrounds",function(req,res){
-    var campgrounds = [
+ var campgrounds = [
     {
         name:"salmon creek",
         image:"https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg"
@@ -22,9 +19,27 @@ app.get("/campgrounds",function(req,res){
         image:"https://farm3.staticflickr.com/2580/3942698066_9157ac5123.jpg"
     }
     ];
+
+app.get("/",function(req,res){
+    res.render("landing");
+});
+
+app.get("/campgrounds",function(req,res){
+   
    res.render("campgrounds",{campgrounds:campgrounds}); 
 });
 
+app.get("/campgrounds/new",function(req, res) {
+   
+    res.render("new");
+});
+
+app.post("/campgrounds",function(req,res){
+     var name = req.body.name;
+    var image = req.body.image;
+    campgrounds.push({name:name,image:image});
+    res.redirect("/campgrounds");
+});
 
 app.listen(process.env.PORT,process.env.IP,function(){
     console.log("YelpCamp server has started!")
