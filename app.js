@@ -3,17 +3,17 @@ var express = require("express"),
     bodyparser = require("body-parser"),
     mongoose = require("mongoose");
     
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost/yelp_mobile");
 app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 
-var campgroundSchema = new mongoose.Schema({
+var mobileSchema = new mongoose.Schema({
     name:String,
     image:String,
     description: String
 });
 
-var Campground = mongoose.model("Campground",campgroundSchema);
+var Mobile = mongoose.model("Mobile",mobileSchema);
 
 // Campground.create({
 //         name:"Yosemite",
@@ -34,42 +34,42 @@ app.get("/",function(req,res){
     res.render("landing");
 });
 
-app.get("/campgrounds",function(req,res){
-    Campground.find({},function(err,campgrounds){
+app.get("/mobiles",function(req,res){
+    Mobile.find({},function(err,mobiles){
         if(err){
             console.log(err);
         }else{
-            res.render("index",{campgrounds:campgrounds});
+            res.render("index",{mobiles:mobiles});
         }
         
     });
    
-  // res.render("campgrounds",{campgrounds:campgrounds}); 
+ 
 });
 
-app.get("/campgrounds/new",function(req, res) {
+app.get("/mobiles/new",function(req, res) {
    
     res.render("new");
 });
 
-app.get("/campgrounds/:id",function(req, res) {
-    Campground.findById(req.params.id,function(err,campground){
+app.get("/mobiles/:id",function(req, res) {
+    Mobile.findById(req.params.id,function(err,mobile){
         if(err){
             console.log(err);
         }else{
-            res.render("show",{campground:campground});
+            res.render("show",{mobile:mobile});
         }
     });
     
     
 });
 
-app.post("/campgrounds",function(req,res){
+app.post("/mobiles",function(req,res){
      var name = req.body.name;
     var image = req.body.image;
     var description = req.body.description;
     //campgrounds.push({name:name,image:image});
-    Campground.create({
+    Mobile.create({
         name: name,
         image:image,
         description: description
@@ -77,12 +77,12 @@ app.post("/campgrounds",function(req,res){
         if(err){
             console.log(err);
         }else{
-            res.redirect("/campgrounds");
+            res.redirect("/mobiles");
         }
     });
     
 });
 
 app.listen(process.env.PORT,process.env.IP,function(){
-    console.log("YelpCamp server has started!")
+    console.log("YelpMobile server has started!")
 });
